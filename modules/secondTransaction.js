@@ -147,10 +147,6 @@ appSecondTransaction.get("/getsecondtransactions"
 
 ,async(req,res)=>{
     try {
-        const sender = req.cookies.token
-        
-        const decoder = jwt.verify(sender,process.env.MYSECRET)
-    
         
       
         const finder = await secondModel.find();

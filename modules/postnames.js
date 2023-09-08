@@ -3,7 +3,7 @@ const { expressApp } = require("./deletroute");
 
 
 const cookieParser=require("cookie-parser")
-const jwt = require("jsonwebtoken")
+
 require('dotenv').config({ debug: true })
 
 const { default: mongoose } = require("mongoose");
@@ -32,6 +32,19 @@ name:"string",
       const stores = mongoose.model("stores",namesOfStores)
     
     
+      const nameOfPlaces = new mongoose.Schema({
+
+   
+        name:"string",
+        
+        
+        })
+          const places = mongoose.model("places",nameOfPlaces)
+        
+        
+    
+
+      
     
 
 
@@ -86,7 +99,7 @@ names.post("/namesofstores",async(req,res)=>{
     try {
         const finder = await stores.find({})
     
-        res.send(["مخزن بني مزار الرئيسي","مخزن مطاي"])
+        res.send(finder)
     } catch (error) {
         res.send("error")
     }
@@ -105,6 +118,56 @@ names.post("/namesofstores",async(req,res)=>{
 
 
 
-
+    names.get("/listofnames",async (req,res)=>{
+        try {
+        
+            const finder =await contractors.find({})
+        
+            res.send(finder)
+        } catch (error) {
+            console.log("error")
+        }
+            
+        
+        
+        }
+        
+        )
+        
+        
+        names.post("/listofplaces",async(req,res)=>{
+        
+        
+            try {
+                const data= new places({name:req.body.name})
+            
+            const saver = await data.save()
+              
+            } catch (error) {
+                res.send("error")
+            }
+              
+            
+            
+            })
+            names.get("/listofplaces",async (req,res)=>{
+            try {
+                const finder = await places.find({})
+            
+                res.send(finder)
+            } catch (error) {
+                res.send("error")
+            }
+                
+            
+            
+            }
+            
+            )
+        
+        
+        
+        
+        
 
 module.exports.name=names;

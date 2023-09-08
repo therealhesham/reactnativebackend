@@ -3,4 +3,4 @@ const { mongoosetransaction } = require("./storepreview");
 appStore = express()
 
 const model =  mongoosetransaction.model(")
-appStore.post("/addstore",async(req,res)=>)
+// appStore.post("/addstore",async(req,res)=>)
