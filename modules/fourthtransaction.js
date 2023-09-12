@@ -74,10 +74,7 @@ const refunder = mongoosetransaction.model("refund",new mongoosetransaction.Sche
     if(  !findByI  ) return res.send("error")                ;
     const saveNewData = await  saver.save();
     
-    // const findByID = await previewStoreSchema.findOne({store:saveNewData.destination,
-    //     items:saveNewData.items
-    //     })
-        
+    
     switch (saver.transactionType) {
         case "مرتجع":
             
@@ -110,9 +107,9 @@ const refunder = mongoosetransaction.model("refund",new mongoosetransaction.Sche
 appFourthTransction.get("/refunds",async(req,res)=>{
     try {
     
-        const sender = req.cookies.token
+        // const sender = req.cookies.token
         
-        const decoder = jwt.verify(sender,process.env.MYSECRET)
+        // const decoder = jwt.verify(sender,process.env.MYSECRET)
     
         
 

@@ -82,7 +82,7 @@ try {
 
 names.post("/namesofstores",async(req,res)=>{
 
-
+    
     try {
         const data= new stores({name:req.body.name})
     
