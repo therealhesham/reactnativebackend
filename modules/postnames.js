@@ -142,7 +142,7 @@ names.post("/namesofstores",async(req,res)=>{
                 const data= new places({name:req.body.name})
             
             const saver = await data.save()
-              
+        res.send(saver)      
             } catch (error) {
                 res.send("error")
             }
