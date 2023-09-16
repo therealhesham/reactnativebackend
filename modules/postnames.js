@@ -99,7 +99,7 @@ names.post("/namesofstores",async(req,res)=>{
     try {
         const finder = await stores.find({name:"مخزن بني مزار الرئيسي"})
     
-        res.send(finder)
+        res.send(["مخزن بني مزار الرئيسي"])
     } catch (error) {
         res.send("error")
     }
