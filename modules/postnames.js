@@ -97,7 +97,7 @@ names.post("/namesofstores",async(req,res)=>{
     })
     names.get("/listofstores",async (req,res)=>{
     try {
-        const finder = await stores.find({})
+        const finder = await stores.find({name:"مخزن بني مزار الرئيسي"})
     
         res.send(finder)
     } catch (error) {
