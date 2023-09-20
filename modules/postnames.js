@@ -42,13 +42,21 @@ name:"string",
           const places = mongoose.model("places",nameOfPlaces)
         
         
-    
+    const nameOfFactories = new mongoose.Schema({
+
+   
+            name:"string",
+            
+            
+            })
+    const factories = mongoose.model("stores",nameOfFactories)
+            
 
       
     
 
 
-names.post("/namesofcontractors",async(req,res)=>{
+appPreview.post("/namesofcontractors",async(req,res)=>{
 
 
 try {
@@ -63,7 +71,7 @@ const saver = await data.save()
 
 
 })
-names.get("/listofnames",async (req,res)=>{
+appPreview.get("/listofnames",async (req,res)=>{
 try {
 
     const finder =await contractors.find({})
@@ -80,7 +88,7 @@ try {
 )
 
 
-names.post("/namesofstores",async(req,res)=>{
+appPreview.post("/namesofstores",async(req,res)=>{
 
     
     try {
@@ -95,11 +103,10 @@ names.post("/namesofstores",async(req,res)=>{
     
     
     })
-    names.get("/listofstores",async (req,res)=>{
+    appPreview.get("/listofstores",async (req,res)=>{
     try {
-        const finder = await stores.find({name:"مخزن بني مزار الرئيسي"})
-    
-        res.send(["مخزن بني مزار الرئيسي"])
+        const finder = await stores.find({})
+    res.send(finder)
     } catch (error) {
         res.send("error")
     }
@@ -115,27 +122,9 @@ names.post("/namesofstores",async(req,res)=>{
 
 
 
-
-
-
-    names.get("/listofnames",async (req,res)=>{
-        try {
-        
-            const finder =await contractors.find({})
-        
-            res.send(finder)
-        } catch (error) {
-            console.log("error")
-        }
-            
         
         
-        }
-        
-        )
-        
-        
-        names.post("/listofplaces",async(req,res)=>{
+        appPreview.post("/listofplaces",async(req,res)=>{
         
         
             try {
@@ -150,7 +139,7 @@ names.post("/namesofstores",async(req,res)=>{
             
             
             })
-            names.get("/listofplaces",async (req,res)=>{
+            appPreview.get("/listofplaces",async (req,res)=>{
             try {
                 const finder = await places.find({})
             
@@ -166,7 +155,36 @@ names.post("/namesofstores",async(req,res)=>{
             )
         
         
+            appPreview.post("/listoffactories",async(req,res)=>{
         
+        
+                try {
+                    const data= new factories({name:req.body.name})
+                
+                const saver = await data.save()
+            res.send(saver)      
+                } catch (error) {
+                    res.send("error")
+                }
+                  
+                
+                
+                })
+                appPreview.get("/listoffactories",async (req,res)=>{
+                try {
+                    const finder = await factories.find({})
+                
+                    res.send(finder)
+                } catch (error) {
+                    res.send("error")
+                }
+                    
+                
+                
+                }
+                
+                )
+             
         
         
 

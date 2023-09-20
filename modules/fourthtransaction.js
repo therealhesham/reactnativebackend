@@ -76,30 +76,34 @@ const refunder = mongoosetransaction.model("refund",new mongoosetransaction.Sche
     
     
     switch (saver.transactionType) {
-        case "مرتجع":
-            
-            // if (!findByID) return res.send(false)
-            const updatedInc = await previewStoreSchema.findByIdAndUpdate(findByI._id,{"$inc":{quantity:+ saveNewData.quantity}})
-            res.send ("not false")
+      case "مرتجع":
+          
+      if (!findByI.unit !== saveNewData.type  ) 
+      {await refunder.findByIdAndDelete(saveNewData._id) 
+     
+         return  res.send("error")}
+          const updatedInc = await previewStoreSchema.findByIdAndUpdate(findByI._id,{"$inc":{quantity:+ saveNewData.quantity}})
+          res.send ("not false")
+  
+          
+          break;
+  
+      default:
+          break;
+  }
+  
+  
+  
+  
+   
     
-            
-            break;
-    
-        default:
-            break;
+    } catch (error) {
+      res.send("error")
     }
     
-    
-    
-    
-     
-      
-      } catch (error) {
-        res.send("error")
-      }
-      
-    
+  
 })
+
 
 
 

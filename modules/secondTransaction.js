@@ -43,49 +43,27 @@ user:req.body.user
 })
 
 
-
 if (savesecondmodel.typeOfImporter == "تنفيذ مقاول") {
 
 
 
-// const {error} = schemaimport.validate(savesecondmodel)
-// if (error) return res.send({error:error.details})
-const saver = await savesecondmodel.save()
- const findByID = await previewStoreSchema.findOne({store:saver.store,
-    items:saver.items
-    })
-    
-switch (saver.transaction) {
-    case "منصرف":
-        if (!findByID || (findByID.quantity - saver.quantity) < 0)  {
-            const deleterr = await secondModel.findByIdAndDelete(saver._id) 
-            return res.send("error")}
-        const updatedDec = await previewStoreSchema.findByIdAndUpdate(findByID._id,{"$inc":{quantity:- saver.quantity}})
-        res.send ("not true")
-        break;
-        case "وارد":
-            if (!findByID) return res.send("error")
-            const updatedInc = await previewStoreSchema.findByIdAndUpdate(findByID._id,{"$inc":{quantity:+ saver.quantity}})
-            res.send ("not true")
-            break;
-    
-    default:
-        break;
-
-}
-    
-
-}
-else if (savesecondmodel.typeOfImporter == "تنفيذ ذاتي"){
+    // const {error} = schemaimport.validate(savesecondmodel)
+    // if (error) return res.send({error:error.details})
     const saver = await savesecondmodel.save()
-    const findByID = await previewStoreSchema.findOne({store:saver.store,
+     const findByID = await previewStoreSchema.findOne({store:saver.store,
         items:saver.items
         })
+        console.log("findByID")
     switch (saver.transaction) {
         case "منصرف":
-            if (!findByID || (findByID.quantity - saver.quantity) < 0)  {
+            
+        if(findByID.type !== saver.unit)  {
+            await secondModel.findByIdAndDelete(saver._id) 
+            return res.send("error")}
+        if (!findByID || (findByID.quantity - saver.quantity) < 0)  {
                 const deleterr = await secondModel.findByIdAndDelete(saver._id) 
                 return res.send("error")}
+            
             const updatedDec = await previewStoreSchema.findByIdAndUpdate(findByID._id,{"$inc":{quantity:- saver.quantity}})
             res.send ("not true")
             break;
@@ -99,13 +77,44 @@ else if (savesecondmodel.typeOfImporter == "تنفيذ ذاتي"){
             break;
     
     }
+        
     
-}
-
-
-})
-
-  
+    }
+    else if (savesecondmodel.typeOfImporter == "تنفيذ ذاتي"){
+        const saver = await savesecondmodel.save()
+        const findByID = await previewStoreSchema.findOne({store:saver.store,
+            items:saver.items
+            })
+        switch (saver.transaction) {
+            case "منصرف":
+            
+            if(findByID.type !== saver.unit) { 
+                const dels = await secondModel.findByIdAndDelete(saver._id) 
+                return res.send("error")}
+            if (!findByID || (findByID.quantity - saver.quantity) < 0)  {
+                    const deleterr = await secondModel.findByIdAndDelete(saver._id) 
+                    return res.send("error")}
+            
+                const updatedDec = await previewStoreSchema.findByIdAndUpdate(findByID._id,{"$inc":{quantity:- saver.quantity}})
+                res.send ("not true")
+                break;
+                case "وارد":
+                    if (!findByID) return res.send("error")
+                    const updatedInc = await previewStoreSchema.findByIdAndUpdate(findByID._id,{"$inc":{quantity:+ saver.quantity}})
+                    res.send ("not true")
+                    break;
+            
+            default:
+                break;
+        
+        }
+        
+    }
+    
+    
+    })
+    
+      
 appSecondTransaction.get("/specificdatas/:store"
 // ,(req,res,next)=>{
 //     res.header("Access-Control-Allow-Origin", "https://my-amac-react-app.vercel.app");

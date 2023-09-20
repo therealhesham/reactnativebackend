@@ -139,13 +139,18 @@ try {
             res.send ("not error")
             break;
         case "وارد":
-            if (!findByID){
-                const deleterr = await modelexport.findByIdAndDelete(saver._id) 
-                return res.send("error")}
-            const updatedInc = await previewStoreSchema.updateOne({_id:findByID._id},{"$inc":{quantity:+ saver.quantity}})
-            res.send ("not error")
-            break;
-        
+   
+        if (!findByID){
+            const deleterr = await modelexport.findByIdAndDelete(saver._id) 
+            return res.send("error")}
+            
+        if(findByID.type !== saver.unit) {
+            const dels = await modelexport.findByIdAndDelete(saver._id) 
+        return res.send("error")}
+        const updatedInc = await previewStoreSchema.updateOne({_id:findByID._id},{"$inc":{quantity:+ saver.quantity}})
+        res.send ("not error")
+        break;
+         
         default:
             break;
 

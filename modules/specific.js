@@ -26,7 +26,7 @@ appSpecific.post("/specificdata"
 
 try {
   const store = req.body.store;
-  console.log(req.body.store);
+  
   const finder =  await previewStoreSchema.find ({store:store})
   res.send(finder)
 
@@ -56,8 +56,8 @@ appSpecific.post("/specificunit"
 console.log(req.body)
     try {
       const items = req.body.items;
-    
-      const finder =  await previewStoreSchema.findOne({items})
+    const store=req.body.store
+      const finder =  await previewStoreSchema.findOne({items:items,store:store})
       res.send(finder)
     } catch (error) {
       console.log(error);
