@@ -37,6 +37,7 @@ try {
 })
 
 appSpecific.post("/specificunit"
+
 // ,(req,res,next)=>{
 //   res.header("Access-Control-Allow-Origin", "https://my-amac-react-app.vercel.app");
 //   res.header({"Access-Control-Allow-Credentials": true});
@@ -53,7 +54,7 @@ appSpecific.post("/specificunit"
 // next()}
 
 , async(req,res)=>{
-console.log(req.body)
+  console.log(req.body)
     try {
       const items = req.body.items;
     const store=req.body.store
