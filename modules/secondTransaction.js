@@ -20,7 +20,7 @@ quantity:{type:"number",required:true},
 items:{type:"string",required:true},
 unit:{type:"string"},
 location:{type:"string"},
-date:{type:"string",default:new Date(Date.now()).toDateString()},
+date:{type:"string"},
 user:"string"
 })
 
@@ -34,7 +34,7 @@ receiptno:req.body.receiptno,
 typeOfImporter:req.body.typeOfImporter,
 contractor:req.body.contractor,
 typeOfContracting:req.body.typeOfContracting,
-
+date:req.body.date,
 quantity:req.body.quantity,
 items:req.body.items,
 unit:req.body.unit,

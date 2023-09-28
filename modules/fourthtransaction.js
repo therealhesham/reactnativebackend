@@ -9,6 +9,7 @@ const refunder = mongoosetransaction.model("refund",new mongoosetransaction.Sche
     transactionType:"string",
     receiptno:"string",
     contractor:{type:"string",required:true},
+    date:"string",
     destination:{type:"string",required:true},
     items:{type:"string",required:true},
     quantity:{type:"string",required:true},
@@ -18,22 +19,7 @@ const refunder = mongoosetransaction.model("refund",new mongoosetransaction.Sche
         }))
     
     
-        appFourthTransction.post("/refund",(req,res,next)=>{
-          res.header("Access-Control-Allow-Origin", "https://my-amac-react-app.vercel.app");
-          res.header({"Access-Control-Allow-Credentials": true});
-          res.header("Access-Control-Max-Age", 24*60*60*1000);
-            res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,UPDATE,OPTIONS');
-        res.header('Access-Control-Allow-Headers', 'X-Requested-With, X-HTTP-Method-Override, Content-Type, Accept');
-      
-          const sender = req.cookies.token
-        // console.log(sender)
-        if(!sender) return res.send("not authenticated");
-        const decoder =  jwt.verify(sender,process.env.MYSECRET)
-        
-      if(!decoder) return res.send("not authenticated");
-      next()}
-      
-      ,async (req,res)=>{
+        appFourthTransction.post("/refund",async (req,res)=>{
           
     // const [contractor,setContractor] = useState("")
     // const [destination,setDestination] = useState("")
@@ -42,22 +28,13 @@ const refunder = mongoosetransaction.model("refund",new mongoosetransaction.Sche
     // const [type,setType]=useState("")
     try {
     
-        // var pairs = req.headers.cookie.split(';')
-      
-        // var cookies = {};
-        // for (var i = 0; i < pairs.length; i++) {
-        //    var nameValue = pairs[i].split('=');
-        //    cookies[nameValue[0].trim()] = nameValue[1];
-        // }
         
-        
-        const sender = req.cookies.token
-        const decoder = jwt.verify(sender,process.env.MYSECRET)
         const saver = new refunder({
             transactionType:"مرتجع",
             contractor:req.body.contractor,
             destination:req.body.destination,
             items:req.body.items,
+            date:req.body.date,
             receiptno:req.body.receiptno,
             quantity:req.body.quantity,
             type:req.body.type

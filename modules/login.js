@@ -43,7 +43,9 @@ next()
 // res.set({"Access-Control-Allow-Credential": true});
 // res.header({"Access-Control-Allow-Origin": "https://my-amac-react-app.vercel.app"});
 
-
+try {
+  
+ 
 const email = req.body.email
 const password = req.body.password
 
@@ -68,11 +70,13 @@ res.send({"authtoken":jwter})
 
 // res.json()
 
+}
 
 
 
-
-
+catch (error) {
+  res.json("dataNotFound");
+}
 
 
 })

@@ -1,5 +1,5 @@
 const express = require("express")
-const jwt = require("jsonwebtoken")
+
 const { mongoosetransaction, previewStoreSchema } = require("./storepreview");
 // const Fawn = require("fawn")
 
@@ -15,7 +15,7 @@ destination:{type:"string",required:true},
 quantity:{type:"number",required:true},
 items:{type:"string",required:true},
 unit:{type:"string"},
-date:{type:"string",default:new Date(Date.now()).toDateString()},
+date:{type:"string"},
 user:"string"
     })
 
@@ -118,7 +118,8 @@ try {
     quantity:req.body.quantity,
     items:req.body.items,
     unit:req.body.unit,
-    user:req.body.user
+    user:req.body.user,
+    date:req.body.date
     
     })
     // console.log(req.headers.token)

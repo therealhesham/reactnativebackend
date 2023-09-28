@@ -19,7 +19,7 @@ quantity:{type:"number",required:true},
 items:{type:"string",required:true},
 unit:{type:"string"},
 
-date:{type:"string",default:new Date(Date.now()).toDateString()},
+date:{type:"string"},
 user:"string"
 })
 
@@ -44,60 +44,39 @@ appThirdTransaction.post("/thirdtransaction"
 
   const savesecondmodel = new thirdModel({
     transaction:"تحويل",
-from:req.body.from,
-to:req.body.to,
-receiptno:req.body.receiptno,
-
-quantity:req.body.quantity,
-items:req.body.items,
-unit:req.body.unit,
-
-user:req.body.user
-})
-
-
-const saver = await savesecondmodel.save()
- const findByID = await previewStoreSchema.findOne({store:savesecondmodel.from,
-    items:savesecondmodel.items
+    from:req.body.from,
+    to:req.body.to,
+    receiptno:req.body.receiptno,
+    
+    quantity:req.body.quantity,
+    items:req.body.items,
+    unit:req.body.unit,
+    date:req.body.date,
+    user:req.body.user
     })
     
-const findByIDinc = await previewStoreSchema.findOne({store:savesecondmodel.to,
+     const findByID = await previewStoreSchema.findOne({store:savesecondmodel.from,
         items:savesecondmodel.items
         })
-switch (saver.transaction) {
-    case "تحويل":
-      if (findByID.type   !== findByIDinc.type !==saver.unit ) 
-      {await thirdModel.findByIdAndDelete(saver._id) 
-     
-         return  res.send("error")}
-
-      if (!findByID  || !findByIDinc || (findByID.quantity - saver.quantity) < 0 ) 
-       {await thirdModel.findByIdAndDelete(saver._id) 
         
-            return  res.send("error")}
-        if(findByID.quantity < 0)    {await thirdModel.findByIdAndDelete(saver._id) 
-        
-        return  res.send("error")
-        }
-        const updatedDec = await previewStoreSchema.findByIdAndUpdate(findByID._id,{"$inc":{quantity:- saver.quantity}})
-        const updatedInc = await previewStoreSchema.findByIdAndUpdate(findByIDinc._id,{"$inc":{quantity:+ saver.quantity}})
-        res.send("not error")
-        
-        break;
-        case "وارد":
-            if (!findByID) return res.send("error")
-            // const updatedInc = await previewStoreSchema.findByIdAndUpdate(findByID._id,{"$inc":{quantity:+ saver.quantity}})
-            res.send ("not error")
-            break;
+    const findByIDinc = await previewStoreSchema.findOne({store:savesecondmodel.to,
+            items:savesecondmodel.items
+            })
+    const quuant = findByID.quantity - savesecondmodel.quantity;
+    if (findByID.type !== savesecondmodel.unit ) return res.send("error");
+    if (findByIDinc.type   !== savesecondmodel.unit ) return res.send("error");
+    if (quuant < 0 ) return res.send("error")
+      if(findByID.quantity <= 0)  return res.send("error")
+    if (savesecondmodel.quantity > findByID.quantity )return res.send("error")
+    const updatedDec = await previewStoreSchema.findByIdAndUpdate(findByID._id,{"$inc":{quantity:- savesecondmodel.quantity}})
+      const updatedInc = await previewStoreSchema.findByIdAndUpdate(findByIDinc._id,{"$inc":{quantity:+ savesecondmodel.quantity}})
+    const saver = await savesecondmodel.save()
     
-    default:
-        break;
-
+      res.send(saver)
+            
+        
 }
-    
-
-    
-})
+    )
 appSecondTransaction.get("/getthirdtransactions"
 // ,(req,res,next)=>{
 //     res.header("Access-Control-Allow-Origin", "https://my-amac-react-app.vercel.app");
