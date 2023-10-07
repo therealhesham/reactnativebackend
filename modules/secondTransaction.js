@@ -15,7 +15,7 @@ store:{type:"string",required:true},
 typeOfImporter:{type:"string",required:true},
 contractor:{type:"string"},
 typeOfContracting:{type:"string"},
-
+file:"string",
 quantity:{type:"number",required:true},
 items:{type:"string",required:true},
 unit:{type:"string"},
@@ -30,6 +30,7 @@ console.log(req.body)
 const savesecondmodel = new secondModel({
     transaction:"منصرف",
 store:req.body.store,
+file:req.body.file,
 receiptno:req.body.receiptno,
 typeOfImporter:req.body.typeOfImporter,
 contractor:req.body.contractor,

@@ -10,6 +10,7 @@ const refunder = mongoosetransaction.model("refund",new mongoosetransaction.Sche
     receiptno:"string",
     contractor:{type:"string",required:true},
     date:"string",
+    file:"string",
     destination:{type:"string",required:true},
     items:{type:"string",required:true},
     quantity:{type:"string",required:true},
@@ -21,11 +22,6 @@ const refunder = mongoosetransaction.model("refund",new mongoosetransaction.Sche
     
         appFourthTransction.post("/refund",async (req,res)=>{
           
-    // const [contractor,setContractor] = useState("")
-    // const [destination,setDestination] = useState("")
-    // const [items,setItems] = useState("")
-    // const [quantity,setQuantity]=useState("")
-    // const [type,setType]=useState("")
     try {
     
         
@@ -37,7 +33,8 @@ const refunder = mongoosetransaction.model("refund",new mongoosetransaction.Sche
             date:req.body.date,
             receiptno:req.body.receiptno,
             quantity:req.body.quantity,
-            type:req.body.type
+            type:req.body.type,
+            file:req.body.file
             
             
                 })

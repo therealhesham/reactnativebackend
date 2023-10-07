@@ -16,6 +16,7 @@ quantity:{type:"number",required:true},
 items:{type:"string",required:true},
 unit:{type:"string"},
 date:{type:"string"},
+file:"string",
 user:"string"
     })
 
@@ -119,6 +120,7 @@ try {
     items:req.body.items,
     unit:req.body.unit,
     user:req.body.user,
+    file:req.body.file,
     date:req.body.date
     
     })

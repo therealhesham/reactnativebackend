@@ -12,7 +12,7 @@ const thirdModel = mongoosetransaction.model("thirdtransaction",new mongoosetran
         
 from:"string",
 to:{type:"string",required:true},
-
+file:"string",
 transaction:{type:"string"},
 receiptno:"string",
 quantity:{type:"number",required:true},
@@ -47,7 +47,7 @@ appThirdTransaction.post("/thirdtransaction"
     from:req.body.from,
     to:req.body.to,
     receiptno:req.body.receiptno,
-    
+    file:req.body.file,
     quantity:req.body.quantity,
     items:req.body.items,
     unit:req.body.unit,
